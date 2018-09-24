@@ -66,8 +66,8 @@ void xaCalcOls(std::vector<T1>& point, std::vector<T2>& coeff, int typeLine) {
     }
 }
 
-template <typename T1, typename T2, typename T3>
-T1 xaCalcLine(std::vector<T2>& coeff, T3 x) {
+template <typename T1, typename T2>
+T2 xaCalcLine(std::vector<T2>& coeff, T2 x) {
     if(coeff.size() == 2) {
         return coeff[1] * x + coeff[0];
     } else
