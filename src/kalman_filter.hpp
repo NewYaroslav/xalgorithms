@@ -18,7 +18,7 @@
  * В любом случае, можно подобрать этот параметр для обеспечения требуемого уровня фильтрации.
  */
 template <typename T>
-class KalmanFilterSimple1D {
+class xaKalmanFilterSimple1D {
 private:
     T X0; /**< предсказанное состояние */
     T P0; /**< предсказанная ковариация */
@@ -31,7 +31,7 @@ private:
     T State;
     T Covariance;
 public:
-    KalmanFilterSimple1D(T q, T r, T f = 1, T h = 1) {
+    xaKalmanFilterSimple1D(T q, T r, T f = 1, T h = 1) {
         Q = q;
         R = r;
         F = f;

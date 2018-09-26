@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     cout << "Hello world!" << endl;
-    KalmanFilterSimple1D<double> KalmanFilter(15.0d, 1.0d);
+    xaKalmanFilterSimple1D<double> KalmanFilter(15.0d, 1.0d);
 
     std::vector<double> vData;
     for(int i = 0; i < 100; ++i) {

@@ -8,6 +8,14 @@ enum xaOlsFunctionType {
     XA_PARABOLA = 1,       /**< Y = A2*X^2 + A1*X + A0 */
 };
 
+/** \brief Метод наименьших квадратов
+ * Определение коэффициентов линейной аппроксимации по МНК
+ * С помощью данной функции можно найти коэффициенты для функций
+ * Y = A1*X + A0 или Y = A2*X^2 + A1*X + A0
+ * \param point двумерный массив точек
+ * \param coeff массив коэффициентов (2 либо 3 коэффициента)
+ * \param typeLine тип линии
+ */
 template <typename T1, typename T2>
 void xaCalcOls(std::vector<T1>& point, std::vector<T2>& coeff, int typeLine) {
         if(typeLine == XA_LINE) {
