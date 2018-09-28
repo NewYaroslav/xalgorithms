@@ -91,7 +91,6 @@ public:
         ay_global = mtx[3] * ax + mtx[4] * ay + mtx[5] * az;
         az_global = mtx[6] * ax + mtx[7] * ay + mtx[8] * az;
     }
-
 };
 
 #endif // MADGWICK_FILTER_HPP_INCLUDED
