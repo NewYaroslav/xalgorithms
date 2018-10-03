@@ -18,6 +18,17 @@ int main() {
     std::cout << "great circle distance: " << xaGetGeoDistanceUsingGreatCircleDistance(lat1, lon1, lat2, lon2) << " m" << std::endl; // расстояние: 633007 м
     std::cout << "vincentys formulae: " << xaGetGeoDistanceUsingVincentysFormulae(lat1, lon1, lat2, lon2) << " m" << std::endl;
 
+    double new_lat;
+    double new_lon;
+    double new_x = 500;
+    double new_y = 500;
+    xaGetGeoLocationUsingGreatCircleDistance(lat1, lon1, new_x, new_y, &new_lat, &new_lon);
+    std::cout << "new lat lon: " << new_lat << " " << new_lon << std::endl;
+    double new_dist = sqrt(new_x*new_x + new_y*new_y);
+    std::cout << "new distance: " << new_dist << " m" << std::endl;
+    std::cout << "new great circle distance: " << xaGetGeoDistanceUsingGreatCircleDistance(lat1, lon1, new_lat, new_lon) << " m" << std::endl;
+
+
     unsigned long long geohash_prec8 = xaGeohashEncode(lat1, lon1, 8);
     unsigned long long geohash_prec9 = xaGeohashEncode(lat1, lon1, 9);
     unsigned long long geohash_prec12 = xaGeohashEncode(lat1, lon1, 12);

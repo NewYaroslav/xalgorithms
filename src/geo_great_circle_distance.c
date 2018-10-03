@@ -10,3 +10,12 @@ double xaGetGeoDistanceUsingGreatCircleDistance(double lat1, double lon1, double
     double c = 2.0d * atan2(sqrt(a), sqrt(1.0d - a));
     return XA_EARTH_RADIUS * c;
 }
+
+void xaGetGeoLocationUsingGreatCircleDistance(double lat1, double lon1, double x2, double y2, double* lat2, double* lon2) {
+    const double PI = 3.1415926535897932384626433832795d;
+    double lat1Rad = xaDegree2Rad(lat1);
+    double deltaLat = x2 / XA_EARTH_RADIUS;
+    double deltaLon = y2 / (XA_EARTH_RADIUS * cos(lat1Rad));
+    *lat2 = (lat1Rad + deltaLat) * 180.0 / PI;
+    *lon2 = (xaDegree2Rad(lon1) + deltaLon) * 180.0 / PI;
+}
