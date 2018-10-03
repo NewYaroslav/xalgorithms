@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="geo_distance" />
+		<Option title="geo_distance_c" />
 		<Option pch_mode="2" />
 		<Option compiler="mingw_64_7_3_0" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/geo_distance" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/geo_distance_c" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="mingw_64_7_3_0" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/geo_distance" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/geo_distance_c" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="mingw_64_7_3_0" />
@@ -32,22 +32,13 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="../../src/geo_common.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../src/geo_common.h" />
-		<Unit filename="../../src/geo_geohash.h" />
-		<Unit filename="../../src/geo_great_circle_distance.c">
-			<Option compilerVar="CPP" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../src/geo_great_circle_distance.h" />
-		<Unit filename="../../src/geo_vincentys_formulae.c">
-			<Option compilerVar="CPP" />
-		</Unit>
-		<Unit filename="../../src/geo_vincentys_formulae.h" />
-		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

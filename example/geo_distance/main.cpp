@@ -9,8 +9,8 @@ int main() {
 
     // первая точка, широта: 55 45 с.ш. долгота: 37 37 в.д.
     // вторая точка, широта: 59 53 с.ш. долгота: 30 15 в.д.
-    double lat1 = xaDMStoDD(true, 55, 45, 0); double lon1 = xaDMStoDD(true, 37, 37, 0);
-    double lat2 = xaDMStoDD(true, 59, 53, 0); double lon2 = xaDMStoDD(true, 30, 15, 0);
+    double lat1 = xaDMStoDD('N', 55, 45, 0); double lon1 = xaDMStoDD('E', 37, 37, 0);
+    double lat2 = xaDMStoDD('N', 59, 53, 0); double lon2 = xaDMStoDD('E', 30, 15, 0);
 
     std::cout << "lat1 " << lat1 << " lon1 " << lon1 << std::endl;
     std::cout << "lat2 " << lat2 << " lon2 " << lon2 << std::endl;
