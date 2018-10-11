@@ -40,6 +40,22 @@ extern inline void xaTransformRelativeToAbsolute(float* lx, float* mtx, float* g
  */
 extern inline void xaTransformRelativeToAbsoluteF64(double* lx, double* mtx, double* gx);
 
+/** \brief Умножение квартенионов
+ * Умножение квартенионов позволяет "повернуть" первый квартенион на второй
+ * \param qa первый квартенион
+ * \param qb второй квартенион
+ * \param qc итоговый квартенион
+ */
+extern inline void xaMultiplyQuaternionF64(double qa[4], double qb[4], double qc[4]);
+
+/** \brief Умножение квартенионов
+ * Умножение квартенионов позволяет "повернуть" первый квартенион на второй
+ * \param qa первый квартенион
+ * \param qb второй квартенион
+ * \param qc итоговый квартенион
+ */
+extern inline void xaMultiplyQuaternionF32(float qa[4], float qb[4], float qc[4]);
+
 #ifdef __cplusplus
 }
 #endif
