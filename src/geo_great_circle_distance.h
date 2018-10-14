@@ -23,7 +23,7 @@ extern "C"
  */
 double xaGetGeoDistanceUsingGreatCircleDistance(double lat1, double lon1, double lat2, double lon2);
 
-/** \brief Получить
+/** \brief Получить точку географического местоположения относительно известной точки используя смещение в метрах
  * X - широта (север положителен), вверх
  * Y - долгота (восток положителен), направо
  * \param lat1 широта первой точки
@@ -34,6 +34,18 @@ double xaGetGeoDistanceUsingGreatCircleDistance(double lat1, double lon1, double
  * \param lon2 долгота второй точки
  */
 void xaGetGeoLocationUsingGreatCircleDistance(double lat1, double lon1, double x2, double y2, double* lat2, double* lon2);
+
+/** \brief Получить смещение в метрах по осям X и Y зная две точки географического местоположения
+ * X - широта (север положителен), вверх
+ * Y - долгота (восток положителен), направо
+ * \param lat1 широта первой точки
+ * \param lon1 долгота первой точки
+ * \param lat2 широта второй точки
+ * \param lon2 долгота второй точки
+ * \param x2 направление вдоль широты (смещение в метра от первой точки)
+ * \param y2 направление вдоль долготы (смещение в метра от первой точки)
+ */
+void xaGetPointUsingGreatCircleDistance(double lat1, double lon1,double lat2, double lon2, double* x2, double* y2);
 
 
 #ifdef __cplusplus

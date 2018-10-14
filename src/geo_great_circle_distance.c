@@ -19,3 +19,10 @@ void xaGetGeoLocationUsingGreatCircleDistance(double lat1, double lon1, double x
     *lat2 = (lat1Rad + deltaLat) * 180.0 / PI;
     *lon2 = (xaDegree2Rad(lon1) + deltaLon) * 180.0 / PI;
 }
+
+void xaGetPointUsingGreatCircleDistance(double lat1, double lon1,double lat2, double lon2, double* x2, double* y2) {
+    const double PI = 3.1415926535897932384626433832795d;
+    double lat1Rad = xaDegree2Rad(lat1);
+    *y2 = (XA_EARTH_RADIUS * cos(lat1Rad)) * ((lon2 * PI/ 180.0) - xaDegree2Rad(lon1));
+    *x2 = (((lat2 * PI) / 180.0) - lat1Rad) * XA_EARTH_RADIUS;
+}

@@ -20,14 +20,19 @@ int main() {
 
     double new_lat;
     double new_lon;
-    double new_x = 500;
-    double new_y = 500;
+    double new_x = 50000;
+    double new_y = 50000;
+    std::cout << "offset point, x: " << new_x << " m y: " << new_y << " m" << std::endl;
     xaGetGeoLocationUsingGreatCircleDistance(lat1, lon1, new_x, new_y, &new_lat, &new_lon);
-    std::cout << "new lat lon: " << new_lat << " " << new_lon << std::endl;
+    std::cout << "new geo location lat " << new_lat << " lon: " << new_lon << std::endl;
     double new_dist = sqrt(new_x*new_x + new_y*new_y);
     std::cout << "new distance: " << new_dist << " m" << std::endl;
     std::cout << "new great circle distance: " << xaGetGeoDistanceUsingGreatCircleDistance(lat1, lon1, new_lat, new_lon) << " m" << std::endl;
+    std::cout << "new vincentys formulae distance: " << xaGetGeoDistanceUsingVincentysFormulae(lat1, lon1, new_lat, new_lon) << " m" << std::endl;
 
+    double point_x, poitn_y;
+    xaGetPointUsingGreatCircleDistance(lat1, lon1, new_lat, new_lon, &point_x, &poitn_y);
+    std::cout << "new point, x: " << point_x << " m y: " << poitn_y << " m" << std::endl;
 
     unsigned long long geohash_prec8 = xaGeohashEncode(lat1, lon1, 8);
     unsigned long long geohash_prec9 = xaGeohashEncode(lat1, lon1, 9);

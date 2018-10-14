@@ -97,6 +97,20 @@ public:
         ay_global = mtx[3] * ax + mtx[4] * ay + mtx[5] * az;
         az_global = mtx[6] * ax + mtx[7] * ay + mtx[8] * az;
     }
+
+    inline void getQuaternion(mFloat q[4]) {
+        q[0] = q0;
+        q[1] = q1;
+        q[2] = q2;
+        q[3] = q3;
+    }
+
+    inline void setQuaternion(mFloat q[4]) {
+        q0 = q[0];
+        q1 = q[1];
+        q2 = q[2];
+        q3 = q[3];
+    }
 };
 
 #endif // MADGWICK_FILTER_HPP_INCLUDED

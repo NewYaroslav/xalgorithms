@@ -25,7 +25,7 @@ static const mFloat PI = 3.14159265358979323846f;
 static const mFloat PI_DIV180 = PI/180.0f;
 #endif
 
-static mFloat invSqrt(mFloat x);
+static float invSqrt(float x);
 
 xaMadgwickFilter::xaMadgwickFilter(mFloat _beta, mFloat _sampleFreq) {
     beta = _beta;
@@ -42,8 +42,10 @@ void MadgwickAHRSupdate(
     mFloat ax, mFloat ay, mFloat az,
     mFloat mx, mFloat my, mFloat mz) {
     //
-    volatile mFloat& q0 = obj.q0; volatile mFloat& q1 = obj.q1;
-    volatile mFloat& q2 = obj.q2; volatile mFloat& q3 = obj.q3;
+    volatile mFloat& q0 = obj.q0;
+    volatile mFloat& q1 = obj.q1;
+    volatile mFloat& q2 = obj.q2;
+    volatile mFloat& q3 = obj.q3;
     volatile mFloat& beta = obj.beta;
     mFloat& period = obj.period;
 
@@ -75,13 +77,21 @@ void MadgwickAHRSupdate(
     if(!((ax == 0.0) && (ay == 0.0) && (az == 0.0))) {
 
         // Нормализовать измерение акселерометра
+#       ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+        recipNorm = 1.0d/sqrt(ax * ax + ay * ay + az * az);
+#       else
         recipNorm = invSqrt(ax * ax + ay * ay + az * az);
+#       endif
         ax *= recipNorm;
         ay *= recipNorm;
         az *= recipNorm;
 
         // Нормализовать измерение магнитометра
+#       ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+        recipNorm = 1.0d/sqrt(mx * mx + my * my + mz * mz);
+#       else
         recipNorm = invSqrt(mx * mx + my * my + mz * mz);
+#       endif
         mx *= recipNorm;
         my *= recipNorm;
         mz *= recipNorm;
@@ -135,7 +145,11 @@ void MadgwickAHRSupdate(
         s3 = _2q1 * (2.0 * (q1q3 - q0q2) - ax) + _2q2 * (2.0 * (q0q1 + q2q3) - ay) + (-_8bx * q3 + _4bz * q1) * (_4bx * (0.5 - q2q2 - q3q3) + _4bz * (q1q3 - q0q2) - mx)
             + (-_4bx * q0 + _4bz * q2) * (_4bx * (q1q2 - q0q3) + _4bz * (q0q1 + q2q3) - my)+(_4bx * q1)*(_4bx * (q0q2 + q1q3) + _4bz * (0.5 - q1q1 - q2q2) - mz);
 
+#       ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+        recipNorm = 1.0d/sqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // нормализовать величину шага
+#       else
         recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // нормализовать величину шага
+#       endif
         s0 *= recipNorm;
         s1 *= recipNorm;
         s2 *= recipNorm;
@@ -155,7 +169,11 @@ void MadgwickAHRSupdate(
     q3 += qDot4 * period;
 
     // Нормализовать кватернион
+#   ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+    recipNorm = 1.0d/sqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
+#   else
     recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
+#   endif
     q0 *= recipNorm;
     q1 *= recipNorm;
     q2 *= recipNorm;
@@ -169,8 +187,10 @@ void MadgwickAHRSupdateIMU(
     mFloat gx, mFloat gy, mFloat gz,
     mFloat ax, mFloat ay, mFloat az) {
     //
-    volatile mFloat& q0 = obj.q0; volatile mFloat& q1 = obj.q1;
-    volatile mFloat& q2 = obj.q2; volatile mFloat& q3 = obj.q3;
+    volatile mFloat& q0 = obj.q0;
+    volatile mFloat& q1 = obj.q1;
+    volatile mFloat& q2 = obj.q2;
+    volatile mFloat& q3 = obj.q3;
     volatile mFloat& beta = obj.beta;
     mFloat& period = obj.period;
 
@@ -189,7 +209,11 @@ void MadgwickAHRSupdateIMU(
     if(!((ax == 0.0) && (ay == 0.0) && (az == 0.0))) {
 
         // Нормализовать измерение акселерометра
+#       ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+        recipNorm = 1.0d/sqrt(ax * ax + ay * ay + az * az);
+#       else
         recipNorm = invSqrt(ax * ax + ay * ay + az * az);
+#       endif
         ax *= recipNorm;
         ay *= recipNorm;
         az *= recipNorm;
@@ -214,7 +238,11 @@ void MadgwickAHRSupdateIMU(
         s1 = _4q1 * q3q3 - _2q3 * ax + 4.0 * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + _4q1 * az;
         s2 = 4.0 * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + _4q2 * az;
         s3 = 4.0 * q1q1 * q3 - _2q1 * ax + 4.0 * q2q2 * q3 - _2q2 * ay;
+#       ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+        recipNorm = 1.0d/sqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // нормализовать величину шага
+#       else
         recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // нормализовать величину шага
+#       endif
         s0 *= recipNorm;
         s1 *= recipNorm;
         s2 *= recipNorm;
@@ -234,7 +262,11 @@ void MadgwickAHRSupdateIMU(
     q3 += qDot4 * period;
 
     // Нормализовать кватернион
+#   ifdef XA_MADGWICK_FILTER_USE_DOUBLE
+    recipNorm = 1.0d/sqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
+#   else
     recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
+#   endif
     q0 *= recipNorm;
     q1 *= recipNorm;
     q2 *= recipNorm;
@@ -245,13 +277,13 @@ void MadgwickAHRSupdateIMU(
 // Быстрый обратный квадратный корень
 // See: http://en.wikipedia.org/wiki/Fast_inverse_square_root
 
-static mFloat invSqrt(mFloat x) {
-    mFloat halfx = 0.5 * x;
-    mFloat y = x;
+static float invSqrt(float x) {
+    float halfx = 0.5f * x;
+    float y = x;
     long i = *(long*)&y;
     i = 0x5f3759df - (i>>1);
     y = *(mFloat*)&i;
-    y = y * (1.5 - (halfx * y * y));
+    y = y * (1.5f - (halfx * y * y));
     return y;
 }
 
